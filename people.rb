@@ -19,12 +19,13 @@ end
 
 instructor = Instructor.new
 instructor.name = "Chris"
-instructor.greeting #Hi, my name is name
+instructor.greeting #Hi, my name is Chris.
 
+student = Student.new
+student.name = "Cristina"
+student.greeting
 
-# person.name.greeting
+instructor.teach
+student.learn
 
-# puts Student.new.learn
-# Chris = instructor.new
-# Chris.name = "Chris"
-# puts Chris.greeting
+# student.teach # teach is not a valid method of class student
