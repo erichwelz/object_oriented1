@@ -25,7 +25,7 @@ class RegularProduct
   end
 
 def output
-  "1 #{@name} : #{total_price}"
+  "1 #{@name} : #{sprintf("%.2f", total_price)}"
   end
 end
 
@@ -60,8 +60,8 @@ class Cart
     # puts total_price
   end
   def print_total
-    puts "Sales Taxes: #{@total_taxes.round(2)}"
-    puts "Total : #{@total_price.round(2)}"
+    puts "Sales Taxes: #{sprintf("%.2f", @total_taxes)}"
+    puts "Total: #{sprintf("%.2f", @total_price)}"
     puts
   end
 
