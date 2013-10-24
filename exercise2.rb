@@ -5,18 +5,15 @@ class RegularProduct
   end
 
   def total_price
-    (@price + sales_tax).round(2)
+    (@price + sales_tax)
   end
 
   def sales_tax
-    int_tax = ((@price * tax_rate)*100).to_i
-    #(@price * tax_rate)
-      if int_tax % 5 == 0
-        return (int_tax.to_f / 100)
+    int_tax = ((@price * tax_rate)*100).to_i 
+      if int_tax % 5 == 0 # guard clause
+        return (int_tax.to_f / 100) # rounds up to nearest .05
       else
         (int_tax.to_f / 100) + 0.05 - (int_tax.to_f / 100 % 0.05)
-      # return price if price % 5 == 0 # guard clause, if satisfied, not need to run any other code
-      # price + 5 - (price % 5) # only rounds up to nearest .05
       end
   end
 
@@ -51,26 +48,29 @@ class Cart
   def initialize(*products)
     @products = products
     @total_taxes = 0
-    @total_price = 0
+    @total_prices = 0
     @products.each do |product|
       @total_taxes += product.sales_tax
-      @total_price += product.total_price
-    end
-    # puts total_taxes
-    # puts total_price
+      @total_prices += product.total_price
+      end
+
   end
-  def print_total
+  
+  def print_totals
     puts "Sales Taxes: #{sprintf("%.2f", @total_taxes)}"
-    puts "Total: #{sprintf("%.2f", @total_price)}"
+    puts "Total: #{sprintf("%.2f", @total_prices)}"
     puts
   end
 
+  def print_receipt(*products)
+    @products.each { |product| puts product.output }
+    print_totals
+  end
 end
-
 
 #input 1
 
-product1 = Exempt.new("book", 12.49) #Questions to ask object is info we need to give it
+product1 = Exempt.new("book", 12.49)
 product2 = RegularProduct.new("music CD", 14.99)
 product3 = Exempt.new("chocolate bar", 0.85)
 
@@ -93,22 +93,10 @@ product3_4 = ImportedExempt.new("imported box of chocolates", 11.25)
 cart3 = Cart.new(product3_1, product3_2, product3_3, product3_4)
 
 puts "Output1:"
-
-puts product1.output
-puts product2.output
-puts product3.output
-cart1.print_total
+cart1.print_receipt
 
 puts "Output2:"
-
-puts product2_1.output
-puts product2_2.output
-cart2.print_total
+cart2.print_receipt
 
 puts "Output3:"
-
-puts product3_1.output
-puts product3_2.output
-puts product3_3.output
-puts product3_4.output
-cart3.print_total
+cart3.print_receipt
