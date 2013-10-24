@@ -47,16 +47,41 @@ class ImportedExempt < Exempt
   end
 end
 
+class Cart
+  def initialize(*products)
+    @products = products
+    @total_taxes = 0
+    @total_price = 0
+    @products.each do |product|
+      @total_taxes += product.sales_tax
+      @total_price += product.total_price
+    end
+    # puts total_taxes
+    # puts total_price
+  end
+  def print_total
+    puts "Sales Taxes: #{@total_taxes.round(2)}"
+    puts "Total : #{@total_price.round(2)}"
+    puts
+  end
+
+end
+
+
 #input 1
 
 product1 = Exempt.new("book", 12.49) #Questions to ask object is info we need to give it
 product2 = RegularProduct.new("music CD", 14.99)
 product3 = Exempt.new("chocolate bar", 0.85)
 
-# Input 2
+cart1 = Cart.new(product1, product2, product3)
+
+# input 2
 
 product2_1 = ImportedExempt.new("imported box of chocolates", 10.00)
 product2_2 = Imported.new("imported bottle of perfume", 47.50)
+
+cart2 = Cart.new(product2_1, product2_2)
 
 # Input 3
 
@@ -65,23 +90,20 @@ product3_2 = RegularProduct.new("bottle of perfume", 18.99)
 product3_3 = Exempt.new("packet of headache pills", 9.75)
 product3_4 = ImportedExempt.new("imported box of chocolates", 11.25)
 
-puts "Output1:"
+cart3 = Cart.new(product3_1, product3_2, product3_3, product3_4)
 
-# init_counters
+puts "Output1:"
 
 puts product1.output
 puts product2.output
 puts product3.output
-
-# print_counters
+cart1.print_total
 
 puts "Output2:"
 
 puts product2_1.output
 puts product2_2.output
-
-puts product2_1.sales_tax
-puts product2_2.sales_tax
+cart2.print_total
 
 puts "Output3:"
 
@@ -89,3 +111,4 @@ puts product3_1.output
 puts product3_2.output
 puts product3_3.output
 puts product3_4.output
+cart3.print_total
