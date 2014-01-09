@@ -1,4 +1,1 @@
-object_oriented1
-================
-
-First OO exercise
+Bitmaker Labs Week 1: Introduction to Object Oriented Programming
